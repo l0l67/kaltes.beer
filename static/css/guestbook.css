@@ -1,5 +1,6 @@
 .userinput {
     position: absolute;
+    width: 100vw;
     left: 0%;
     margin-right: 0%;
     transform: translate(0%, 0);
@@ -41,15 +42,13 @@
 }
 
 .userinput textarea {
-    width: 80vw;
+    width: 75ch;
     height: 20vh;
 }
 
-@media (min-width: 1000px) { 
+@media (max-width: 600px) { 
     .userinput textarea {
-        width: 80vw;
-        max-width: 30%;
-        height: 20vh;
+        width: 96vw;
     }
  }
 
