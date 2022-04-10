@@ -1,0 +1,42 @@
+body {
+    background-color: #292a2d;
+    color: #bfbfbf;
+}
+
+.content {
+    position: absolute;
+    margin-top: 2rem;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+}
+
+.topnav {
+    position: fixed;
+    left: 1vw;
+    margin-bottom: 1rem;
+}
+
+.topnav a {
+    color: #bfbfbf;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.topnav a:visited {
+    color: #bfbfbf;
+    text-decoration: underline;
+}
+
+.about {
+    text-align: center;
+}
+
+svg {
+    transition: 300ms;
+}
+
+svg:hover {
+    fill: #bfbfbf;
+    transform: scale(1.05);
+}

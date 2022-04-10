@@ -1,0 +1,48 @@
+.userinput {
+    position: absolute;
+    left: 0%;
+    margin-right: 0%;
+    transform: translate(0%, 0);
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.entry pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+
+    width: 80vw;
+}
+
+.entry p {
+    overflow: hidden;
+    word-break: keep-all;
+    white-space: nowrap;
+}
+
+.textinput, .buttoninput {
+    color: #bfbfbf;
+    background-color: transparent;
+    border: 1px solid #bfbfbf;
+    transition: 300ms;
+}
+
+.userinput textarea {
+    width: 80vw;
+    height: 20vh;
+}
+
+@media (min-width: 1000px) { 
+    .userinput textarea {
+        width: 80vw;
+        max-width: 30%;
+        height: 20vh;
+    }
+ }
+
+.buttoninput:hover {
+    cursor: pointer;
+}

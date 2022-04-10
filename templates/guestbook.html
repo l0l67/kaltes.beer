@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Guestbook</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<link rel="stylesheet" href="../static/css/style.css"> <!-- for vscode live server -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/guestbook.css') }}">
+		<link rel="stylesheet" href="../static/css/guestbook.css"> <!-- for vscode live server -->
+	</head>
+	<body>
+		<div class="topnav">
+			<a href="{{url_for('index')}}">Index</a>
+			<a href="{{url_for('guestbook')}}">Guestbook</a>
+		  </div>
+
+
+		<div class="content userinput">
+			<form action="{{url_for('newGuestbookEntry')}}" method="post">
+				<label for="username">Name (max. 25 characters):</label><br>
+				<input class="textinput" type="text" name="username" required><br>
+				
+				<label for="website">Website:</label><br>
+				<input class="textinput" type="text" name="website"><br>
+				
+				<label for="message">Message (max. 300 characters):</label><br>
+				<textarea class="textinput" maxlength="300" name="message"></textarea><br>
+				
+				<input class="buttoninput" type="submit" value="Submit">
+			</form>
+
+			{% for entry in entries %}
+				<div class="entry">
+					<p>----------------------------------------------------------------------------------------------</p>
+					<h3 id="date_and_username">{{entry[4]}} - {{entry[1]}}</h3>
+					{% if entry[3] != '' %}
+						<a href="//{{entry[3]}}">{{entry[3]}}</a>
+						<br>
+					{% endif %}
+					{% if entry[2] != '' %}
+						<pre id="message">{{entry[2]}}</pre>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+</html> 
