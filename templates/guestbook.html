@@ -33,10 +33,12 @@
 			{% for entry in entries %}
 				<div class="entry">
 					<p>----------------------------------------------------------------------------------------------</p>
-					<h3 id="date_and_username">{{entry[4]}} - {{entry[1]}}</h3>
+					<h3 class="date_and_username">{{entry[1]}}</h3>
+					
 					{% if entry[3] != '' %}
-						<a href="//{{entry[3]}}">{{entry[3]}}</a>
-						<br>
+						<p class="postDatetime">{{entry[4]}} - <a href="//{{entry[3]}}">{{entry[3]}}</a></p>
+					{% else %}
+						<p class="postDatetime">{{entry[4]}}</p>
 					{% endif %}
 					{% if entry[2] != '' %}
 						<pre id="message">{{entry[2]}}</pre>

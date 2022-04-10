@@ -17,13 +17,12 @@ body {
     margin-bottom: 1rem;
 }
 
-.topnav a {
+a {
     color: #bfbfbf;
     text-decoration: underline;
-    text-align: center;
 }
 
-.topnav a:visited {
+a:visited {
     color: #bfbfbf;
     text-decoration: underline;
 }
@@ -39,4 +38,16 @@ svg {
 svg:hover {
     fill: #bfbfbf;
     transform: scale(1.05);
+}
+
+.socials {
+    text-align: left;
+}
+
+.socials h2 {
+    margin-bottom: 0px;
+}
+
+.socials ul {
+    margin-top: 0px;
 }

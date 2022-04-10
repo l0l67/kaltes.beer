@@ -15,12 +15,22 @@
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 
     width: 80vw;
+    max-width: 70ch;
 }
 
 .entry p {
     overflow: hidden;
     word-break: keep-all;
     white-space: nowrap;
+}
+
+.date_and_username {
+    margin-bottom: 0px;
+}
+
+.postDatetime {
+    margin-top: 0px;
+    font-size: 0.75em;
 }
 
 .textinput, .buttoninput {
