@@ -5,43 +5,42 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="../static/css/style.css"> <!-- for vscode live server -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/guestbook.css') }}">
-		<link rel="stylesheet" href="../static/css/guestbook.css"> <!-- for vscode live server -->
 	</head>
 	<body>
 		<div class="topnav">
 			<a href="{{url_for('index')}}">Index</a>
 			<a href="{{url_for('guestbook')}}">Guestbook</a>
-		  </div>
+			<a href="{{url_for('about')}}">About</a>
+		</div>
 
-
-		<div class="content userinput">
+		<div class="content">
 			<form action="{{url_for('newGuestbookEntry')}}" method="post">
 				<label for="username">Name (max. 25 characters):</label><br>
 				<input class="textinput" type="text" name="username" required><br>
 				
-				<label for="website">Website:</label><br>
-				<input class="textinput" type="text" name="website"><br>
+				<label for="website">Website (max. 100 characters):</label><br>
+				<input class="textinput" type="text" maxlength="100" name="website"><br>
 				
-				<label for="message">Message (max. 300 characters):</label><br>
-				<textarea class="textinput" maxlength="300" name="message"></textarea><br>
+				<label for="message">Message (max. 1000 characters):</label><br>
+				<textarea class="textinput" maxlength="1000" name="message"></textarea><br>
 				
-				<input class="buttoninput" type="submit" value="Submit">
+				<input class="textinput" type="submit" value="Submit">
 			</form>
 
 			{% for entry in entries %}
+				<hr>
 				<div class="entry">
-					<p>----------------------------------------------------------------------------------------------</p>
-					<h3 class="date_and_username">{{entry[1]}}</h3>
+					
+					<h3>{{entry[1]}}</h3>
 					
 					{% if entry[3] != '' %}
-						<p class="postDatetime">{{entry[4]}} - <a href="//{{entry[3]}}">{{entry[3]}}</a></p>
+						<p>{{entry[4]}} - <a href="//{{entry[3]}}">{{entry[3]}}</a></p>
 					{% else %}
-						<p class="postDatetime">{{entry[4]}}</p>
+						<p>{{entry[4]}}</p>
 					{% endif %}
 					{% if entry[2] != '' %}
-						<pre id="message">{{entry[2]}}</pre>
+						<pre>{{entry[2]}}</pre>
 					{% endif %}
 				</div>
 			{% endfor %}

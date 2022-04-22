@@ -5,25 +5,28 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="../static/css/style.css"> <!-- for vscode live server -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 	</head>
 	<body>
 		<div class="topnav">
 			<a href="{{url_for('index')}}">Index</a>
 			<a href="{{url_for('guestbook')}}">Guestbook</a>
-		  </div>
+			<a href="{{url_for('about')}}">About</a>
+		</div>
 
 		<div class="content">
-			<p>I dont know what to write here but this is my Website</p>
+			<h1>kaltes.beer</h1>
+			<br>
 
-			<div class="about">
-				<div class="socials">
-					<h2>Socials:</h2>
-					<ul>
-						<li><a href="https://github.com/l0l67">Github</a></li>
-						<li><a href="https://www.instagram.com/namestehthier/">Instagram</a></li>
-					</ul>
-				</div>
+			<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+			<br>
+			
+			<div class="socials">
+				<h2>Socials:</h2>
+				<ul>
+					<li><a href="https://github.com/l0l67">Github</a></li>
+					<li><a href="https://www.instagram.com/namestehthier/">Instagram</a></li>
+				</ul>
 			</div>
 		</div>
 	</body>

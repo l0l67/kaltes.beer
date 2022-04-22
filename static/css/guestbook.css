@@ -1,57 +1,43 @@
-.userinput {
-    position: absolute;
-    width: 100vw;
-    left: 0%;
-    margin-right: 0%;
-    transform: translate(0%, 0);
-    padding-left: 1vw;
-    padding-right: 1vw;
+form {
+    margin-bottom: 2vh;
 }
 
-.entry pre {
+.textinput {
+    color: #bfbfbf;
+    background-color: transparent;
+    border: 1px solid #bfbfbf;
+}
+
+textarea {
+    height: 25ch;
+    width: 70ch;
+}
+
+@media (max-width: 600px) { 
+    textarea {
+        width: 98%;
+    }
+ }
+
+.entry {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.entry h3, p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.entry p {
+    font-size: 0.75em;
+    margin-bottom: 1vh;
+}
+
+ pre {
     white-space: pre-wrap;       /* Since CSS 2.1 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
-
-    width: 80vw;
-    max-width: 70ch;
-}
-
-.entry p {
-    overflow: hidden;
-    word-break: keep-all;
-    white-space: nowrap;
-}
-
-.date_and_username {
-    margin-bottom: 0px;
-}
-
-.postDatetime {
-    margin-top: 0px;
-    font-size: 0.75em;
-}
-
-.textinput, .buttoninput {
-    color: #bfbfbf;
-    background-color: transparent;
-    border: 1px solid #bfbfbf;
-    transition: 300ms;
-}
-
-.userinput textarea {
-    width: 75ch;
-    height: 20vh;
-}
-
-@media (max-width: 600px) { 
-    .userinput textarea {
-        width: 96vw;
-    }
  }
-
-.buttoninput:hover {
-    cursor: pointer;
-}

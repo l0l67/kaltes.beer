@@ -1,20 +1,30 @@
+* {
+    margin: 0px;
+}
+
 body {
     background-color: #292a2d;
     color: #bfbfbf;
 }
 
-.content {
-    position: absolute;
-    margin-top: 2rem;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, 0);
-}
-
 .topnav {
     position: absolute;
+    top: 1vh;
     left: 1vw;
-    margin-bottom: 1rem;
+    right: 1vw;
+    bottom: 1vh;
+    margin-bottom: 1vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+.content {
+    position: absolute;
+    top: calc(1vh + 2rem);
+    right: 1vw;
+    left: 1vw;
 }
 
 a {
@@ -27,27 +37,7 @@ a:visited {
     text-decoration: underline;
 }
 
-.about {
-    text-align: center;
-}
-
-svg {
-    transition: 300ms;
-}
-
-svg:hover {
-    fill: #bfbfbf;
-    transform: scale(1.05);
-}
-
-.socials {
-    text-align: left;
-}
-
-.socials h2 {
-    margin-bottom: 0px;
-}
-
-.socials ul {
-    margin-top: 0px;
+hr {
+    border: 1px solid grey;
+    background-color: grey;
 }
