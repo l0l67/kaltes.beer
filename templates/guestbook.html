@@ -17,7 +17,7 @@
 		<div class="content">
 			<form action="{{url_for('newGuestbookEntry')}}" method="post">
 				<label for="username">Name (max. 25 characters):</label><br>
-				<input class="textinput" type="text" name="username" required><br>
+				<input class="textinput" type="text" maxlength="25" name="username" required><br>
 				
 				<label for="website">Website (max. 100 characters):</label><br>
 				<input class="textinput" type="text" maxlength="100" name="website"><br>
@@ -30,7 +30,7 @@
 
 			{% for entry in entries %}
 				<hr>
-				<div class="entry">
+				<div class="entry" id="{{entry[1]}}">
 					
 					<h3>{{entry[1]}}</h3>
 					

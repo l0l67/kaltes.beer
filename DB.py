@@ -15,18 +15,18 @@ def getMessages():
 def setLastPost(ip):
     global db
     if _IPexists(ip):
-        db.execute('update lastplaced set postdate = CURRENT_TIMESTAMP where ip_addr = ?', [ip])
+        db.execute('update lastcomment set postdate = CURRENT_TIMESTAMP where ip_addr = ?', [ip])
     else:
-        db.execute('insert into lastplaced (ip_addr, postdate) values (?, CURRENT_TIMESTAMP)', [ip])
+        db.execute('insert into lastcomment (ip_addr, postdate) values (?, CURRENT_TIMESTAMP)', [ip])
 
 def _IPexists(ip):
     global db
-    cursor = db.execute('select exists(select 1 from lastplaced where ip_addr = ?)', [ip]).fetchone()[0]
+    cursor = db.execute('select exists(select 1 from lastcomment where ip_addr = ?)', [ip]).fetchone()[0]
     return cursor == 1
 
 def getLastPost(ip):
     global db
-    cursor = db.execute("select ip_addr, datetime(postdate, 'localtime') from lastplaced where ip_addr = ?", [ip])
+    cursor = db.execute("select ip_addr, datetime(postdate, 'localtime') from lastcomment where ip_addr = ?", [ip])
     return cursor.fetchall()
 
 def closeDB():
@@ -37,7 +37,7 @@ def closeDB():
 def createTable():
     global db
     db.execute('create table if not exists guestbook (id integer primary key AUTOINCREMENT, username text not null, message text, website text, entrydate datetime not null);')
-    db.execute('create table if not exists lastplaced (id integer primary key AUTOINCREMENT, ip_addr text not null, postdate datetime not null)')
+    db.execute('create table if not exists lastcomment (id integer primary key AUTOINCREMENT, ip_addr text not null, postdate datetime not null)')
 
 if __name__ == '__main__':
     createTable()
