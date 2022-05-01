@@ -6,7 +6,7 @@ import DB
 
 
 # Timeout duration in seconds for IP (Guestbook):
-post_timeout = 60
+post_timeout = 3600 # 3600s = 1h
 dtFormat = '%Y-%m-%d %H:%M:%S'
 
 

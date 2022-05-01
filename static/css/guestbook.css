@@ -6,6 +6,7 @@ form {
     color: #bfbfbf;
     background-color: transparent;
     border: 1px solid #bfbfbf;
+    margin-bottom: 2px;
 }
 
 textarea {
