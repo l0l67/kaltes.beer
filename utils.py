@@ -31,4 +31,4 @@ def updatePostIfChanged(filename):
                 DB.updatePost(oldPost[0], title, checksum, markdownToHtml(content))
 
 def getTitleFromMarkdown(markdown):
-    return re.search('<!--(.*)-->', markdown).group()
+    return re.search('<!-- (.*) -->', markdown).group(1)
