@@ -54,7 +54,7 @@ def newGuestbookEntry():
     if ('username' in tmp and tmp.get('username') != '') and canPlace(request):
         website = tmp.get('website')[:100]
         DB.newMessage(tmp.get('username')[:25], tmp.get('message')[:1000], re.sub('^http[s]?:\/\/', '', website))
-        print(f"[{datetime.now().strftime(dtFormat)}] New Post from {request.remote_addr}")
+        print(f"[{datetime.now().strftime(DATETIME_FORMAT)}] New Post from {request.remote_addr}")
     
     return redirect(url_for('guestbook'))
 
@@ -76,9 +76,9 @@ def canPlace(request):
     lastPost = DB.getLastComment(ip)
 
     if len(lastPost) > 0:
-        lastPost = datetime.strptime(lastPost[0][1], dtFormat)
-        now = datetime.now().strftime(dtFormat)
-        now = datetime.strptime(now, dtFormat)
+        lastPost = datetime.strptime(lastPost[0][1], DATETIME_FORMAT)
+        now = datetime.now().strftime(DATETIME_FORMAT)
+        now = datetime.strptime(now, DATETIME_FORMAT)
         
         diff = now - lastPost
 
