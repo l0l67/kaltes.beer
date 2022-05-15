@@ -35,7 +35,12 @@ def updatePostIfChanged(filename):
                 print(f"updated post: {title}")
 
 def getTitleFromMarkdown(markdown):
-    return re.search('<!-- (.*) -->', markdown).group(1)
+    try:
+        return re.search('<!-- (.*) -->', markdown).group(1)
+    except AttributeError:
+        print('No title found!')
+        return 'No Title'
+        
 
 
 if __name__ == '__main__':
