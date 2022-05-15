@@ -1,4 +1,4 @@
-import markdown, hashlib, os, re
+import markdown, hashlib, sys, os, re
 import DB
 
 def markdownToHtml(md):
@@ -24,11 +24,24 @@ def updatePostIfChanged(filename):
         
         if len(oldPost) == 0:
             DB.addPost(filename, title, checksum, markdownToHtml(content))
+            
+            print(f"added new post: {title}")
         else:
             oldPost = oldPost[0]
 
             if oldPost[1] != checksum:
                 DB.updatePost(oldPost[0], title, checksum, markdownToHtml(content))
 
+                print(f"updated post: {title}")
+
 def getTitleFromMarkdown(markdown):
     return re.search('<!-- (.*) -->', markdown).group(1)
+
+
+if __name__ == '__main__':
+    try:
+        if sys.argv[1] == 'update':
+            print('Updating...')
+            checkForNewPosts()
+    except IndexError:
+        pass
