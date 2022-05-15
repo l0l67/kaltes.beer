@@ -28,8 +28,6 @@ def updatePostIfChanged(filename):
             oldPost = oldPost[0]
 
             if oldPost[1] != checksum:
-                print(f"updating: {oldPost[0]}")
-
                 DB.updatePost(oldPost[0], title, checksum, markdownToHtml(content))
 
 def getTitleFromMarkdown(markdown):

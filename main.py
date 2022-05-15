@@ -14,12 +14,12 @@ public = Flask(__name__)
 public.wsgi_app = ProxyFix(public.wsgi_app, x_for=1, x_host=1)
 
 
-# index
+# /index
 @public.route('/', methods=['GET'])
 def index():
     return render_template('sites/index.html')
 
-# archive
+# /archive
 @public.route('/archive', methods=['GET'])
 def archive():
     posts = DB.getPostList()
@@ -30,15 +30,14 @@ def archive():
 @public.route('/posts/<postName>', methods=['GET'])
 def posts(postName):
     postName = request.path[1:]
-
-    print(postName)
-
     post = DB.getPostByFilename(postName)
 
     if len(post) > 0:
         post = post[0]
                 
         return render_template('sites/postTemplate.html', title=post[0], content=post[1])
+    else:
+        return not_found(None)
 
 # /Guestbook
 @public.route('/guestbook', methods=['GET'])
@@ -64,6 +63,11 @@ def newGuestbookEntry():
 def about():
     return render_template('sites/about.html')
 
+
+# 404
+@public.errorhandler(404)
+def not_found(e):
+    return render_template("sites/404.html"), 404
 
 
 
