@@ -26,20 +26,20 @@ def getLastComment(ip):
 
 
 
-def getPostIdFromFilename(filename):
-    cursor = db.execute('select id, checksum from archive where filename = ?', [filename])
+def getPostIdFromPostName(postname):
+    cursor = db.execute('select id, checksum from archive where postname = ?', [postname])
     return cursor.fetchall()
 
 def getPostList():
-    cursor = db.execute('select title, filename, postdate from archive')
+    cursor = db.execute('select title, postname, postdate from archive')
     return cursor.fetchall()
 
-def getPostByFilename(filename):
-    cursor = db.execute('select title, html, postdate, lastchanged from archive where filename = ?', [filename])
+def getPostByPostName(postname):
+    cursor = db.execute('select title, html, postdate, lastchanged from archive where postname = ?', [postname])
     return cursor.fetchall()
 
-def addPost(filename, title, checksum, html):
-    db.execute('insert into archive (filename, title, checksum, postdate, lastchanged, html) values (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)', [filename, title, checksum, html])
+def addPost(postname, title, checksum, html):
+    db.execute('insert into archive (postname, title, checksum, postdate, lastchanged, html) values (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)', [postname, title, checksum, html])
     db.commit()
 
 def updatePost(id, title, checksum, html):
@@ -54,7 +54,7 @@ def closeDB():
 
 #Stuff:
 def createTable():
-    db.execute('create table if not exists archive (id integer unique primary key AUTOINCREMENT, filename text unique not null, title text not null, checksum text not null, postdate datetime not null, lastchanged datetime not null, html text not null)')
+    db.execute('create table if not exists archive (id integer unique primary key AUTOINCREMENT, postname text unique not null, title text not null, checksum text not null, postdate datetime not null, lastchanged datetime not null, html text not null)')
 
     db.execute('create table if not exists guestbook (id integer unique primary key AUTOINCREMENT, username text not null, message text, website text, entrydate datetime not null)')
     db.execute('create table if not exists lastcomment (id integer unique primary key AUTOINCREMENT, ipAddress text not null, postdate datetime not null)')

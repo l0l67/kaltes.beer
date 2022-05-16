@@ -18,12 +18,13 @@ def updatePostIfChanged(filename):
     with open(filename) as f:
         content = str(f.read())
         title = getTitleFromMarkdown(content)
+        postName = filename.replace('.md', '')
         checksum = getChecksum(content)
         
-        oldPost = DB.getPostIdFromFilename(filename)
+        oldPost = DB.getPostByPostName(postName)
         
         if len(oldPost) == 0:
-            DB.addPost(filename, title, checksum, markdownToHtml(content))
+            DB.addPost(postName, title, checksum, markdownToHtml(content))
             
             print(f"added new post: {title}")
         else:

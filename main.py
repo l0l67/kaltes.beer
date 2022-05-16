@@ -30,7 +30,7 @@ def archive():
 @public.route('/posts/<postName>', methods=['GET'])
 def posts(postName):
     postName = request.path[1:]
-    post = DB.getPostByFilename(postName)
+    post = DB.getPostByPostName(postName)
 
     if len(post) > 0:
         post = post[0]
