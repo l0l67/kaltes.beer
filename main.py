@@ -35,7 +35,7 @@ def posts(postName):
     if len(post) > 0:
         post = post[0]
                 
-        return render_template('sites/postTemplate.html', title=post[0], content=post[1])
+        return render_template('sites/postTemplate.html', title=post[1], content=post[2])
     else:
         return not_found(None)
 

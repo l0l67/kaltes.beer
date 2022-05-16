@@ -35,15 +35,15 @@ def getPostList():
     return cursor.fetchall()
 
 def getPostByPostName(postname):
-    cursor = db.execute('select title, html, postdate, lastchanged from archive where postname = ?', [postname])
+    cursor = db.execute('select id, title, html, postdate, lastchanged, checksum from archive where postname = ?', [postname])
     return cursor.fetchall()
 
 def addPost(postname, title, checksum, html):
     db.execute('insert into archive (postname, title, checksum, postdate, lastchanged, html) values (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)', [postname, title, checksum, html])
     db.commit()
 
-def updatePost(id, title, checksum, html):
-    db.execute('update archive set title = ?, lastchanged = CURRENT_TIMESTAMP, checksum = ?, html = ? where id = ?', [title, checksum, html, id])
+def updatePost(id, postname, title, checksum, html):
+    db.execute('update archive set postname = ?, title = ?, lastchanged = CURRENT_TIMESTAMP, checksum = ?, html = ? where id = ?', [postname, title, checksum, html, id])
     db.commit()
 
 

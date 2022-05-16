@@ -19,7 +19,7 @@ def updatePostIfChanged(filename):
         content = str(f.read())
         title = getTitleFromMarkdown(content)
         postName = filename.replace('.md', '')
-        checksum = getChecksum(content)
+        checksum = getChecksum(postName + title + content)
         
         oldPost = DB.getPostByPostName(postName)
         
@@ -30,8 +30,8 @@ def updatePostIfChanged(filename):
         else:
             oldPost = oldPost[0]
 
-            if oldPost[1] != checksum:
-                DB.updatePost(oldPost[0], title, checksum, markdownToHtml(content))
+            if oldPost[5] != checksum:
+                DB.updatePost(oldPost[0], postName, title, checksum, markdownToHtml(content))
 
                 print(f"updated post: {title}")
 
@@ -49,5 +49,6 @@ if __name__ == '__main__':
         if sys.argv[1] == 'update':
             print('Updating...')
             checkForNewPosts()
+            print('Done!')
     except IndexError:
         pass

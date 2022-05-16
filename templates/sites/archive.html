@@ -5,6 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/archive.css') }}">
 	</head>
 	<body>
 		{% include 'elements/topnav.html' %}
@@ -19,7 +20,7 @@
 						<li>
 							<a href="{{post[1]}}">{{post[0]}}</a>
 							<br>
-							<p>{{post[2]}}</p>
+							<p class="date">{{post[2]}}</p>
 						</li>
 					{% endfor %}
 				</ul>
