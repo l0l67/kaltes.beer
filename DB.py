@@ -2,26 +2,27 @@ import sqlite3
 
 db = sqlite3.connect('database.db', check_same_thread=False)
 
-def newMessage(username, message, website):
-    db.execute('insert into guestbook (username, message, website, entrydate) values (?, ?, ?, CURRENT_TIMESTAMP)', [username, message, website])
+def newGuestbookEntry(ip, username, message, website):
+    cursor = db.execute('insert into guestbook (ipAddress, username, message, website, entrydate) values (?, ?, ?, ?, CURRENT_TIMESTAMP)', [ip, username, message, website])
     db.commit()
+    return cursor.lastrowid
 
 def getMessages():
-    cursor = db.execute('select * from guestbook')
+    cursor = db.execute('select username, website, message, entrydate from guestbook')
     return cursor.fetchall()
 
 def setLastPost(ip):
     if _IPexists(ip):
-        db.execute('update lastcomment set postdate = CURRENT_TIMESTAMP where ipAddress = ?', [ip])
+        db.execute('update clients set postdate = CURRENT_TIMESTAMP where ipAddress = ?', [ip])
     else:
-        db.execute('insert into lastcomment (ipAddress, postdate) values (?, CURRENT_TIMESTAMP)', [ip])
+        db.execute('insert into clients (ipAddress, postdate) values (?, CURRENT_TIMESTAMP)', [ip])
 
 def _IPexists(ip):
-    cursor = db.execute('select exists(select 1 from lastcomment where ipAddress = ?)', [ip]).fetchone()[0]
+    cursor = db.execute('select exists(select 1 from clients where ipAddress = ?)', [ip]).fetchone()[0]
     return cursor == 1
 
-def getLastComment(ip):
-    cursor = db.execute("select ipAddress, datetime(postdate, 'localtime') from lastcomment where ipAddress = ?", [ip])
+def getLastEntry(ip):
+    cursor = db.execute("select ipAddress, datetime(postdate, 'localtime') from clients where ipAddress = ?", [ip])
     return cursor.fetchall()
 
 
@@ -56,8 +57,8 @@ def closeDB():
 def createTable():
     db.execute('create table if not exists archive (id integer unique primary key AUTOINCREMENT, postname text unique not null, title text not null, checksum text not null, postdate datetime not null, lastchanged datetime not null, html text not null)')
 
-    db.execute('create table if not exists guestbook (id integer unique primary key AUTOINCREMENT, username text not null, message text, website text, entrydate datetime not null)')
-    db.execute('create table if not exists lastcomment (id integer unique primary key AUTOINCREMENT, ipAddress text not null, postdate datetime not null)')
+    db.execute('create table if not exists guestbook (id integer unique primary key AUTOINCREMENT, ipAddress not null references clients(ipAdress), username text not null, message text, website text, entrydate datetime not null)')
+    db.execute('create table if not exists clients (id integer unique primary key AUTOINCREMENT, ipAddress text not null, postdate datetime not null)')
 
 if __name__ == '__main__':
     createTable()

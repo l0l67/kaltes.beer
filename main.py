@@ -2,7 +2,7 @@ from flask import *
 from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import datetime
 import re
-import DB, utils
+import DB, utils, log
 
 
 # Timeout duration in seconds for IP (Guestbook):
@@ -53,9 +53,10 @@ def newGuestbookEntry():
 
     if ('username' in tmp and tmp.get('username') != '') and canPlace(request):
         website = tmp.get('website')[:100]
-        DB.newMessage(tmp.get('username')[:25], tmp.get('message')[:1000], re.sub('^http[s]?:\/\/', '', website))
-        print(f"[{datetime.now().strftime(DATETIME_FORMAT)}] New Post from {request.remote_addr}")
-    
+        entryID = DB.newGuestbookEntry(request.remote_addr, tmp.get('username')[:25], tmp.get('message')[:1000], re.sub('^http[s]?:\/\/', '', website))
+
+        log.logInfo(f"New post from {request.remote_addr} with ID {entryID}")
+
     return redirect(url_for('guestbook'))
 
 # /about
@@ -74,7 +75,7 @@ def not_found(e):
 def canPlace(request):
     ip = request.remote_addr
     if ip not in utils.getBlacklist():
-        lastPost = DB.getLastComment(ip)
+        lastPost = DB.getLastEntry(ip)
 
         if len(lastPost) > 0:
             lastPost = datetime.strptime(lastPost[0][1], DATETIME_FORMAT)
