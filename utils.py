@@ -52,3 +52,6 @@ if __name__ == '__main__':
             print('Done!')
     except IndexError:
         pass
+
+def getBlacklist():
+    return open('blacklist.txt', 'r').read().split(',')

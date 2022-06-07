@@ -46,7 +46,7 @@ def guestbook():
     entries.reverse()
 
     return render_template('sites/guestbook.html', entries=entries)
-
+  
 @public.route('/newGuestbookEntry', methods=['POST'])
 def newGuestbookEntry():
     tmp = request.form
@@ -73,17 +73,20 @@ def not_found(e):
 
 def canPlace(request):
     ip = request.remote_addr
-    lastPost = DB.getLastComment(ip)
+    if ip not in utils.getBlacklist():
+        lastPost = DB.getLastComment(ip)
 
-    if len(lastPost) > 0:
-        lastPost = datetime.strptime(lastPost[0][1], DATETIME_FORMAT)
-        now = datetime.now().strftime(DATETIME_FORMAT)
-        now = datetime.strptime(now, DATETIME_FORMAT)
+        if len(lastPost) > 0:
+            lastPost = datetime.strptime(lastPost[0][1], DATETIME_FORMAT)
+            now = datetime.now().strftime(DATETIME_FORMAT)
+            now = datetime.strptime(now, DATETIME_FORMAT)
+            
+            diff = now - lastPost
+
+            if (diff.total_seconds() <= POST_TIMEOUT):
+                return False
         
-        diff = now - lastPost
-
-        if diff.total_seconds() <= POST_TIMEOUT:
-            return False
-    
-    DB.setLastPost(ip)
-    return True
+        DB.setLastPost(ip)
+        return True
+    else:
+        return False
