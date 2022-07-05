@@ -24,6 +24,11 @@
 				<input class="textinput" type="submit" value="Submit">
 			</form>
 
+			{% if awaitingVerification %}
+				<p>Your Post is awaiting verification.</p>
+				<br>
+			{% endif %}
+
 			{% for entry in entries %}
 				<hr>
 				<div class="entry" id="{{entry[0]}}">

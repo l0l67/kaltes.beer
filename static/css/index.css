@@ -1,4 +1,9 @@
-.socials h2,ul {
+.postList ul {
     margin-top: 0%;
     margin-bottom: 0%;
+    padding-left: 1.5vw;
+}
+
+.postList p {
+    font-size: 0.75rem;
 }

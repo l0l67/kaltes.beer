@@ -1,12 +1,14 @@
 from flask import *
 from werkzeug.middleware.proxy_fix import ProxyFix
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 import DB, utils, log
 
 
 # Timeout duration in seconds for IP (Guestbook):
-POST_TIMEOUT = 3600 # 3600s = 1h
+POST_TIMEOUT = 0 # 3600s = 1h
+# Max. age of Posts in days to appear on index page
+MAX_POST_AGE = 5 
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
@@ -17,7 +19,10 @@ public.wsgi_app = ProxyFix(public.wsgi_app, x_for=1, x_host=1)
 # /index
 @public.route('/', methods=['GET'])
 def index():
-    return render_template('sites/index.html')
+    posts = DB.getPostAfterDate(datetime.today() - timedelta(days=MAX_POST_AGE))
+    posts.reverse()
+
+    return render_template('sites/index.html', posts=posts)
 
 # /archive
 @public.route('/archive', methods=['GET'])
@@ -44,8 +49,9 @@ def posts(postName):
 def guestbook():
     entries = DB.getMessages()
     entries.reverse()
+    awaitingVerification = DB.awaitingVerification(request.remote_addr);
 
-    return render_template('sites/guestbook.html', entries=entries)
+    return render_template('sites/guestbook.html', entries=entries, awaitingVerification=awaitingVerification)
   
 @public.route('/newGuestbookEntry', methods=['POST'])
 def newGuestbookEntry():
